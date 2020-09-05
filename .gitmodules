@@ -1,0 +1,3 @@
+[submodule "libfins"]
+	path = libfins
+	url = git@github.com:lammertb/libfins

@@ -1,0 +1,17 @@
+[package]
+name = "libfins-sys"
+version = "0.1.0"
+links = "libfins"
+build = "build.rs"
+authors = ["Trevor Basinger <trevor.basinger@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+libc = "*"
+
+[build-dependencies]
+cc = { version = "1.0", features = ["parallel"] }
+pkg-config = "0.3"
+bindgen = "0.55.1"
