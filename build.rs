@@ -28,16 +28,20 @@ fn main() {
         panic!("Couldn't find source files. Make sure that you init submodules.");
     }
 
+    println!("cargo:rustc-link-lib=fins");
+    println!("cargo:rerun-if-changed={}/{}", header_dir, "fins.h");
+    for f in src_files.iter() {
+        println!("cargo:rerun-if-changed={}", f);
+    }
+
     let mut builder = cc::Build::new();
     let build = builder.files(src_files).include(header_dir);
-
     build.compile("fins");
 
-    println!("cargo:rustc-link-lib=fins");
-    println!("cargo:rerun-if-changed=wrapper.h");
+    println!("cargo:rerun-if-changed=src/wrapper.h");
 
     let bindings = bindgen::Builder::default()
-        .header("wrapper.h")
+        .header("src/wrapper.h")
         .parse_callbacks(Box::new(bindgen::CargoCallbacks))
         .generate()
         .expect("Unable to generate bindings.");
