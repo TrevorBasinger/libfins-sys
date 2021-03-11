@@ -35,7 +35,11 @@ fn main() {
     }
 
     let mut builder = cc::Build::new();
-    let build = builder.files(src_files).include(header_dir);
+    let build = builder
+        .files(src_files)
+        .include(header_dir)
+        .compiler("gcc")
+        .flag("-std=gnu99");
     build.compile("fins");
 
     println!("cargo:rerun-if-changed=src/wrapper.h");
